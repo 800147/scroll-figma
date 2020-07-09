@@ -1,19 +1,22 @@
 {
   "manifest_version": 2,
-  "name": "Scroll Figma",
-  "version": "1.0",
+  "name": "Figma scroll speed fix for Linux",
+  "short_name": "Scroll Figma",
+  "version": "1.1",
 
-  "description": "Fixes scroll on figma.com in Linux",
-  
+  "author": "Boolat Kamalov",
+  "homepage_url": "https://github.com/800147/scroll-figma",
+  "description": "Fixes scroll speed on figma.com in Linux",
+
   "icons": {
-    "48": "mouse.svg",
-    "96": "mouse.svg"
+    "32": "icon-32.png",
+    "64": "icon-64.png"
   },
-  
+
   "content_scripts": [
     {
-      "matches": ["*://figma.com/*", "*://*.figma.com/*"],
-      "js": ["fix.js"]
+      "matches": ["*://*.figma.com/*"],
+      "js": ["index.js"]
     }
   ]
 }
