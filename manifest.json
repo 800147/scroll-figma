@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Figma scroll speed fix for Linux",
   "short_name": "Scroll Figma",
-  "version": "1.1",
+  "version": "1.2",
 
   "author": "Boolat Kamalov",
   "homepage_url": "https://github.com/800147/scroll-figma",
