@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Scroll Figma",
+  "version": "1.0",
+
+  "description": "Fixes scroll on figma.com in Linux",
+  
+  "icons": {
+    "48": "mouse.svg",
+    "96": "mouse.svg"
+  },
+  
+  "content_scripts": [
+    {
+      "matches": ["*://figma.com/*", "*://*.figma.com/*"],
+      "js": ["fix.js"]
+    }
+  ]
+}
