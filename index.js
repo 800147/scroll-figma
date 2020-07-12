@@ -1,12 +1,15 @@
-const SPEED_MULTIPLIER = 16;
+(() => {
+  const DOM_DELTA_PIXEL = 0;
+  const DOM_DELTA_LINE = 1;
+  const DOM_DELTA_PAGE = 2;
 
-if (window.navigator.userAgent.includes('Linux')) {
-  const duplicatedWheelEvents = new Set();
+  const FONT_SIZE = 16;
+  const DELTA_X_MULTIPLIER = FONT_SIZE * 3;
+  const DELTA_Y_MULTIPLIER = FONT_SIZE;
+  const DELTA_Z_MULTIPLIER = FONT_SIZE;
 
-  window.addEventListener('wheel', event => {
-    if (duplicatedWheelEvents.has(event)) {
-      duplicatedWheelEvents.delete(event);
-
+  const onWheel = event => {
+    if (event.deltaMode !== DOM_DELTA_LINE) {
       return;
     }
 
@@ -17,7 +20,7 @@ if (window.navigator.userAgent.includes('Linux')) {
     event.preventDefault();
     event.stopPropagation();
 
-    const duplicatedEvent = new WheelEvent('wheel', {
+    const modifiedEvent = new WheelEvent('wheel', {
       altKey: event.altKey,
       bubbles: event.bubbles,
       button: event.button,
@@ -30,14 +33,44 @@ if (window.navigator.userAgent.includes('Linux')) {
       ctrlKey: event.ctrlKey,
       currentTarget: event.currentTarget,
       defaultPrevented: event.defaultPrevented,
-      deltaMode: event.deltaMode,
-      deltaX: event.deltaX * SPEED_MULTIPLIER,
-      deltaY: event.deltaY * SPEED_MULTIPLIER,
-      deltaZ: event.deltaZ * SPEED_MULTIPLIER,
-      detail: event.detail
+      detail: event.detail,
+      explicitOriginalTarget: event.explicitOriginalTarget,
+      layerX: event.layerX,
+      layerY: event.layerY,
+      metaKey: event.metaKey,
+      movementX: event.movementX,
+      movementY: event.movementY,
+      mozInputSource: event.mozInputSource,
+      mozPressure: event.mozPressure,
+      offsetX: event.offsetX,
+      offsetY: event.offsetY,
+      originalTarget: event.originalTarget,
+      pageX: event.pageX,
+      pageY: event.pageY,
+      rangeOffset: event.rangeOffset,
+      rangeParent: event.rangeParent,
+      region: event.region,
+      relatedTarget: event.relatedTarget,
+      returnValue: event.returnValue,
+      screenX: event.screenX,
+      screenY: event.screenY,
+      shiftKey: event.shiftKey,
+      srcElement: event.srcElement,
+      target: event.target,
+      timeStamp: event.timeStamp,
+      view: event.view,
+      which: event.which,
+      x: event.x,
+      y: event.y,
+
+      deltaMode: DOM_DELTA_PIXEL,
+      deltaX: event.deltaX * DELTA_X_MULTIPLIER,
+      deltaY: event.deltaY * DELTA_Y_MULTIPLIER,
+      deltaZ: event.deltaZ * DELTA_Z_MULTIPLIER
     });
 
-    duplicatedWheelEvents.add(duplicatedEvent);
-    event.target.dispatchEvent(duplicatedEvent);
-  }, { capture: true });
-}
+    event.target.dispatchEvent(modifiedEvent);
+  };
+
+  window.addEventListener('wheel', onWheel, { capture: true });
+})();
