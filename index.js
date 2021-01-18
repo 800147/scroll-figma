@@ -1,15 +1,11 @@
 (() => {
-  const DOM_DELTA_PIXEL = 0;
-  const DOM_DELTA_LINE = 1;
-  const DOM_DELTA_PAGE = 2;
-
   const FONT_SIZE = 16;
   const DELTA_X_MULTIPLIER = FONT_SIZE * 3;
   const DELTA_Y_MULTIPLIER = FONT_SIZE;
   const DELTA_Z_MULTIPLIER = FONT_SIZE;
 
   const onWheel = event => {
-    if (event.deltaMode !== DOM_DELTA_LINE) {
+    if (event.deltaMode !== WheelEvent.DOM_DELTA_LINE) {
       return;
     }
 
@@ -32,7 +28,6 @@
       composed: event.composed,
       ctrlKey: event.ctrlKey,
       currentTarget: event.currentTarget,
-      defaultPrevented: event.defaultPrevented,
       detail: event.detail,
       explicitOriginalTarget: event.explicitOriginalTarget,
       layerX: event.layerX,
@@ -63,7 +58,7 @@
       x: event.x,
       y: event.y,
 
-      deltaMode: DOM_DELTA_PIXEL,
+      deltaMode: WheelEvent.DOM_DELTA_PIXEL,
       deltaX: event.deltaX * DELTA_X_MULTIPLIER,
       deltaY: event.deltaY * DELTA_Y_MULTIPLIER,
       deltaZ: event.deltaZ * DELTA_Z_MULTIPLIER
@@ -72,5 +67,5 @@
     event.target.dispatchEvent(modifiedEvent);
   };
 
-  window.addEventListener('wheel', onWheel, { capture: true });
+  window.addEventListener('wheel', onWheel, { capture: true, passive: false });
 })();
